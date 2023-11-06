@@ -1,16 +1,20 @@
 import "./day.css";
 import { DayType } from "./dayType";
 import { Plan } from "../Types";
-import { PlanList } from "../planList/planList";
+
+import { PlanList, PlanSelectors, usePlanStore } from "../plan";
 
 type DayProps = {
   day: DayType;
-  planList: Plan[];
   onEdit: (plan: Plan) => void;
   onDelete: (plan: Plan) => void;
 };
 
-export const Day = ({ day, planList, onEdit, onDelete }: DayProps) => {
+export const Day = ({ day, onEdit, onDelete }: DayProps) => {
+  const planList = usePlanStore((state) =>
+    PlanSelectors.selectListByDay(state, day.name)
+  );
+
   return (
     <div className="day">
       <h2>{day.name}</h2>

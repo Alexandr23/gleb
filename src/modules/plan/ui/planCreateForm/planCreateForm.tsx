@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./planCreateForm.css";
-import { Day, Plan } from "../Types";
+import { Day } from "../../../Types";
+import { Plan } from "../../core";
+import { PlanActions } from "../..";
 
 type PlanCreateFormProps = {
-  plan?: Plan;
-  createPlan: (plan: Plan) => void;
+  plan?: Plan.Plan;
 };
 
-export const PlanCreateForm = ({ plan, createPlan }: PlanCreateFormProps) => {
+export const PlanCreateForm = ({ plan }: PlanCreateFormProps) => {
   const [description, setDiscription] = useState(plan ? plan.description : "");
   const [name, setName] = useState(plan ? plan.name : "");
   const [day, setDay] = useState<Day>(plan ? plan.day : "Monday");
@@ -27,13 +28,15 @@ export const PlanCreateForm = ({ plan, createPlan }: PlanCreateFormProps) => {
   const onClickPlan = (event: React.FormEvent) => {
     event.preventDefault();
     if (!description) return;
-    const planCard: Plan = {
+    const planCard: Plan.Plan = {
       id: plan ? plan.id : String(Math.floor(Math.random() * 101)),
       name,
       description,
       day,
     };
-    createPlan(planCard);
+
+    PlanActions.createPlan(planCard);
+
     setDiscription("");
     setName("");
   };

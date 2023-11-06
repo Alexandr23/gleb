@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Plan } from "../Types";
+
+import { Plan } from "../../core";
 import { PlanCreateForm } from "../planCreateForm/planCreateForm";
 
 import "./planCard.css";
 
 type PlanCardPropd = {
-  plan: Plan;
-  onEdit: (plan: Plan) => void;
-  onDelete: (plan: Plan) => void;
+  plan: Plan.Plan;
+  onEdit: (plan: Plan.Plan) => void;
+  onDelete: (plan: Plan.Plan) => void;
 };
 
 export const PlanCard = ({ plan, onEdit, onDelete }: PlanCardPropd) => {
@@ -41,7 +42,7 @@ export const PlanCard = ({ plan, onEdit, onDelete }: PlanCardPropd) => {
       )}
       {edit === true && (
         <div>
-          <PlanCreateForm plan={plan} createPlan={onEdit} />
+          <PlanCreateForm plan={plan} />
           <div className="optionButtons">
             <button className="optionButtons_buttons" onClick={closeWinwod}>
               Х
